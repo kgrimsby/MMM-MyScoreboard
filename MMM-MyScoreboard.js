@@ -635,7 +635,7 @@ Module.register("MMM-MyScoreboard",{
 
   getScores: function() {
 
-    var gameDate = moment(); //get today's date
+      var gameDate = moment().subtract(10, 'days'); //get today's date
 
     if (gameDate.hour() < this.config.rolloverHours) {
       /*

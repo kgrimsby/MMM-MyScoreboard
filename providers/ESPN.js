@@ -36,6 +36,7 @@
 const request = require("request");
 const moment = require("moment-timezone");
 const parseJSON = require("json-parse-async");
+const Log = require("logger");
 
 module.exports = {
 
@@ -393,9 +394,9 @@ module.exports = {
     var url = "http://site.api.espn.com/apis/site/v2/sports/" +
       this.getLeaguePath(league) +
       "/scoreboard?dates=" +
-      moment(gameDate).format("YYYYMMDD") + "&limit=200";
+	moment(gameDate).format("YYYYMMDD")+'-'+moment().add(10, 'days').format('YYYYMMDD') + "&limit=200";
 
-
+      Log.info(url);
     ///temporary link to have Soccer Games ShowingUp  ** Use this to have the API point to a date
     // var url = "http://site.api.espn.com/apis/site/v2/sports/" +
     //     this.getLeaguePath(league) +
@@ -542,7 +543,7 @@ module.exports = {
           break;
         case "1": //scheduled
           gameState = 0;
-          status.push(moment(game.competitions[0].date).tz(localTZ).format("h:mm a"));
+          status.push(moment(game.competitions[0].date).tz(localTZ).format("ddd DD.MM HH:mm"));
           break;
         case "2": //in-progress
         case "21": //beginning of period

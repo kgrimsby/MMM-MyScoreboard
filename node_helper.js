@@ -1,4 +1,5 @@
 const NodeHelper = require("node_helper");
+const Log = require("logger");
 
 module.exports = NodeHelper.create({
 
@@ -26,7 +27,8 @@ module.exports = NodeHelper.create({
       */
 
       var self = this;
-      var provider = this.providers[payload.provider];
+	var provider = this.providers[payload.provider];
+	Log.info('Payload provider: ', payload.provider);
 
       provider.getScores(payload.league, payload.teams, payload.gameDate, function(scores) {
         self.sendSocketNotification("MMM-MYSCOREBOARD-SCORE-UPDATE", {instanceId: payload.instanceId, index: payload.index, scores: scores});
